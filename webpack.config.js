@@ -1,8 +1,3 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin')
-const OpenBrowserPlugin = require('open-browser-webpack-plugin') //自动打开浏览器
-const path = require('path')
-
 module.exports = function(env, argv) {
   console.log('env', env)
   env = env || { development: true }
@@ -19,6 +14,10 @@ module.exports = function(env, argv) {
             loader: "babel-loader",
             options: {
               presets: ["env", "react"],
+              plugins: [["import", {
+                "libraryName": "antd",
+                "style": "css",
+              }]]
             }
           }],
           exclude: /node_modules/
@@ -33,7 +32,7 @@ module.exports = function(env, argv) {
           }]
         },
         {
-          test: /\.(less|css)$/i, // 针对 .less 后缀的文件设置 loader
+          test: /\.less$/i, // 针对 .less 后缀的文件设置 loader
           use: ['style-loader', 'css-loader', 'less-loader', {
             loader: 'postcss-loader',
             options: {
